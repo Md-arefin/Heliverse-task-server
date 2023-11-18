@@ -1,4 +1,7 @@
-const uri = "mongodb+srv://<username>:<password>@cluster0.bqstehg.mongodb.net/HeliverseDB";
+const mongoose = require("mongoose");
+require('dotenv').config();
+
+const uri = `mongodb+srv://${process.env.USER_Name}:${process.env.PASSWORD}@cluster0.bqstehg.mongodb.net/HeliverseDB`;
 
 async function connectDB() {
     try {
