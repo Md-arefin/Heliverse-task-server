@@ -5,6 +5,7 @@ exports.getUser = async (req, res) => {
         const usersModel =await userModel.find();
         res.send(usersModel);
     } catch (error) {
+        console.error('Server Error', error);
         res.status(500).send('Server Error',error);
     }
 }
@@ -16,6 +17,7 @@ exports.getUserData = async (req, res) => {
         const userData =await userModel.find().skip((page - 1) * perPage) .limit(perPage);
         res.send(userData);
     } catch (error) {
+        console.error('Server Error', error);
         res.status(500).send('Server Error',error);
     }
 }
@@ -32,6 +34,7 @@ exports.searchUser = async (req, res) => {
         res.send(user);
 
     } catch (error) {
+        console.error('Server Error', error);
         res.status(500).send('Server Error',error);
     }
 }
@@ -39,12 +42,11 @@ exports.searchUser = async (req, res) => {
 exports.getUsersByGender = async (req, res) => {
     try {
         const { gender } = req.query;
-        console.log(gender);
+        // console.log(gender);
         const filteredUsers = await userModel.find({ gender : gender });
-        console.log(gender);
         res.send(filteredUsers);
     } catch (error) {
-        console.error('Error filtering users by gender:', error);
+        console.error('Server Error', error);
         res.status(500).send( 'Server Error', error);
     }
 };
@@ -52,9 +54,23 @@ exports.getUsersByGender = async (req, res) => {
 exports.getUsersByDomain = async (req, res) => {
     try {
         const { domain } = req.query;
+         // console.log(gender);
         const filteredUsers = await userModel.find({ domain: domain });
         res.send(filteredUsers);
     } catch (error) {
+        console.error('Server Error', error);
+        res.status(500).send( 'Server Error', error);
+    }
+};
+
+exports.getUsersByAvailability = async (req, res) => {
+    try {
+        const { available } = req.query;
+        //  console.log(available);
+        const filteredUsers = await userModel.find({ available: available });
+        console.log('[filteredUsers]', filteredUsers);
+    } catch (error) {
+        console.error('Server Error', error);
         res.status(500).send( 'Server Error', error);
     }
 };

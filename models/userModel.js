@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     gender: String,
     avatar: String,
     domain: String,
-    available: String,
+    available: Boolean,
 });
 
 const UserModel = mongoose.model('users', userSchema);
