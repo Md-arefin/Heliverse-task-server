@@ -19,3 +19,19 @@ exports.getUserData = async (req, res) => {
         res.status(500).send('Server Error',error);
     }
 }
+
+exports.searchUser = async (req, res) => {
+    try {
+        const { query, page } = req.query;
+        const perPage = 20;
+
+        const regex = new RegExp(query, 'i');
+
+        const user = await userModel.find({first_name: regex} || {last_name: regex}).skip((page - 1) * perPage).limit(perPage);
+
+        res.send(user);
+
+    } catch (error) {
+        res.status(500).send('Server Error',error);
+    }
+}
