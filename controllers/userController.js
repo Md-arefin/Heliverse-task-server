@@ -39,10 +39,22 @@ exports.searchUser = async (req, res) => {
 exports.getUsersByGender = async (req, res) => {
     try {
         const { gender } = req.query;
-        const filteredUsers = await userModel.find({ gender });
-        res.json(filteredUsers);
+        console.log(gender);
+        const filteredUsers = await userModel.find({ gender : gender });
+        console.log(gender);
+        res.send(filteredUsers);
     } catch (error) {
         console.error('Error filtering users by gender:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).send( 'Server Error', error);
+    }
+};
+
+exports.getUsersByDomain = async (req, res) => {
+    try {
+        const { domain } = req.query;
+        const filteredUsers = await userModel.find({ domain: domain });
+        res.send(filteredUsers);
+    } catch (error) {
+        res.status(500).send( 'Server Error', error);
     }
 };
